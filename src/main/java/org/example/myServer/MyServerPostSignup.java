@@ -14,7 +14,8 @@ public class MyServerPostSignup extends RequestHandler implements HttpHandler {
         String url = exchange.getRequestURI().toString();
         if ("POST".equals(exchange.getRequestMethod())) {
             String login = null;
-            String password= null;;
+            String password = null;
+            ;
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode jsonNode = objectMapper.readTree(exchange.getRequestBody());

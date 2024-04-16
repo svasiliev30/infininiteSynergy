@@ -58,19 +58,19 @@ public class ProductRepository {
     }
 
     public boolean authenticationPerson(String login, String password, String url) {
-        if (url.equals("/money")){
+        if (url.equals("/money")) {
             try {
                 String cashToken = Cashe.person.getToken();
                 if (!token.validateToken(cashToken)) return false;
                 return true;
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 e.printStackTrace();
                 return false;
             }
 
         }
-            String sqlGetPerson = "SELECT * from bank" +
-                    " WHERE login ='" + login + "' AND password ='" + password + "'";
+        String sqlGetPerson = "SELECT * from bank" +
+                " WHERE login ='" + login + "' AND password ='" + password + "'";
 
 
         try (Connection connection = DriverManager.getConnection(this.jdbcUrl, this.name, this.password);
@@ -90,8 +90,8 @@ public class ProductRepository {
             return false;
         }
         if (url.equals("/signin")) {
-           if (authenticationPersonAndNewToken(login, password)) return true;
-           return false;
+            if (authenticationPersonAndNewToken(login, password)) return true;
+            return false;
         }
         if (!token.validateToken(localPerson.getToken())) return false;
         log.logWrite(LocalDateTime.now() + " Authentication account login = " + login);
@@ -125,7 +125,7 @@ public class ProductRepository {
         try (Connection connection = DriverManager.getConnection(this.jdbcUrl, this.name, this.password);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sqlGetPerson)) {
-            if ( sum < 0) return false;
+            if (sum < 0) return false;
             resultSet.next();
 
             Person bdPerson = new Person(

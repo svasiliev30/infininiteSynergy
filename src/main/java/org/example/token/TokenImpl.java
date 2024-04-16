@@ -8,10 +8,10 @@ import java.util.Date;
 
 public class TokenImpl implements Token {
     private String secretKey = "mySecretKey123";
-    private  long validityInMilliseconds = 3600000;
+    private long validityInMilliseconds = 3600000;
 
     @Override
-    public String createToken(String login,String password) {
+    public String createToken(String login, String password) {
         String token = null;
         try {
             token = Jwts.builder()
@@ -21,7 +21,7 @@ public class TokenImpl implements Token {
                     .setExpiration(new Date(System.currentTimeMillis() + validityInMilliseconds))
                     .signWith(SignatureAlgorithm.HS256, secretKey)
                     .compact();
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return token;
@@ -45,7 +45,7 @@ public class TokenImpl implements Token {
                     .getExpiration();
             if (expiration.before(new Date())) return false;
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
